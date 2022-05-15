@@ -20,16 +20,17 @@ export async function getArticle(slug: string): Promise<Article> {
     const articlePath: string = path.join(articlesPath, `${slug}.mdx`)
     const source: string = fs.readFileSync(articlePath, 'utf8')
     const { data, content } = matter(source)
-    const { title, publishedAt, tags, description, coverImage, categories } = data
+    const { title, publishedAt, tags, description, coverImage } = data
 
     return {
+        title,
         content,
         slug,
         description,
         publishedAt,
         readingTime: readingTime(source).text,
         coverImage,
-        categories
+
     }
 }
 
@@ -39,17 +40,17 @@ export async function getArticles(): Promise<Article[]> {
     return articles.reduce((acc: Article[], article: string) => { 
         const source: string = fs.readFileSync(path.join(process.cwd(), `data/articles/${article}`), 'utf8')
         const {data} = matter(source)
-        const { title, publishedAt, tags, description, coverImage, categories } = data
+        const { title, publishedAt, description, coverImage } = data
 
         return [
             ...acc,
             {
+                title,
                 slug: article.replace('.mdx', ''),
                 description,
                 publishedAt,
                 readingTime: readingTime(source).text,
                 coverImage,
-                categories
             }
         ]
     }, [] as Article[])

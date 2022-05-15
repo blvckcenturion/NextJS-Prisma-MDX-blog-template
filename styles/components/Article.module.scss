@@ -1,0 +1,21 @@
+@import '../index.scss';
+
+.article{
+    
+    padding:25px;
+    border-radius: 1.3vh;
+    border: 1px solid $accent-color;
+    margin: 2vh 0;
+    div:first-child{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    h3{
+        font-family: $main-font;
+        font-size: 1.5rem;
+    }
+}
